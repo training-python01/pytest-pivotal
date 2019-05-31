@@ -18,14 +18,14 @@ class TestProject:
         assert response.status_code == 200
 
     def test_put_projects(self, create_project):
-        project = create_project
-        url = 'projects/{}'.format(project['id'])
+        project_id = create_project['id']
+        url = f'projects/{project_id}'
         project = {"name": "Project01Test - updated"}
         response = pytest.client.execute_request('put', url, data=project)
         assert response.status_code == 200
 
     def test_delete_projects(self, create_project):
-        project = create_project
-        url = 'projects/{}'.format(project['id'])
+        project_id = create_project['id']
+        url = f'projects/{project_id}'
         response= pytest.client.execute_request('delete', url)
         assert response.status_code == 204

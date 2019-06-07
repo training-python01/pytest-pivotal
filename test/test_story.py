@@ -1,21 +1,7 @@
 import pytest
 
+
 class TestStory:
-
-    @pytest.fixture
-    def create_project(self):
-        project = {"name": "Project02Test"}
-        response = pytest.client.execute_request('post', 'projects', data=project)
-        return response.json()
-
-    @pytest.fixture
-    def create_story(self,create_project):
-        project_id = create_project['id']
-        url = f'/projects/{project_id}/stories'
-        story_data = {"name": "Story test 01"}
-        response = pytest.client.execute_request('post', url, data=story_data)
-        return response.json()
-
     def test_get_story(self, create_project):
         project_id = create_project['id']
         url = f'/projects/{project_id}/stories'
@@ -25,7 +11,7 @@ class TestStory:
     def test_post_story(self, create_project):
         project_id = create_project['id']
         url = f'/projects/{project_id}/stories'
-        story_data={"name": "Story test 01"}
+        story_data = {"name": "Story test 01"}
         response = pytest.client.execute_request('post', url, data=story_data)
         assert response.status_code == 200
 
@@ -33,7 +19,7 @@ class TestStory:
         project_id = create_story['project_id']
         story_id = create_story['id']
         url = f'/projects/{project_id}/stories/{story_id}'
-        story_data={"name": "Story test 01-updated"}
+        story_data = {"name": "Story test 01-updated"}
         response = pytest.client.execute_request('put', url, data=story_data)
         assert response.status_code == 200
 
